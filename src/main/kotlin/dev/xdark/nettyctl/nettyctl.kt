@@ -147,7 +147,7 @@ fun premain(args: String, instrumentation: Instrumentation) = agent(args)
 fun agentmain(args: String, instrumentation: Instrumentation) = agent(args)
 
 private fun <T> makeEnumParser(type: Class<T>): OptionParser<T> where T : Enum<T> {
-    val map = type.enumConstants.associateBy { (it as Enum<T>).name }
+    val map = type.enumConstants.associateBy { it.name }
     return { map[it] ?: error("Unknown enum constant: $it") }
 }
 
