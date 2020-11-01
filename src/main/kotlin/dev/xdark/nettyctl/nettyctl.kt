@@ -1,5 +1,7 @@
 package dev.xdark.nettyctl
 
+import io.netty.buffer.ByteBufUtil
+import io.netty.buffer.PooledByteBufAllocator
 import io.netty.channel.ChannelOutboundBuffer
 import io.netty.channel.MultithreadEventLoopGroup
 import io.netty.channel.PendingWriteQueue
@@ -122,6 +124,36 @@ val eventExecutorMaxPendingTasks = makeBoundOption(
     SingleThreadEventExecutor::class.java,
     "DEFAULT_MAX_PENDING_EXECUTOR_TASKS",
     intParser
+)
+val threadLocalDirectBufferSize = makeBoundOption(
+    "io.netty.threadLocalDirectBufferSize",
+    ByteBufUtil::class.java,
+    "THREAD_LOCAL_BUFFER_SIZE",
+    intParser
+)
+val maxThreadLocalCharBufferSize = makeBoundOption(
+    "io.netty.maxThreadLocalCharBufferSize",
+    ByteBufUtil::class.java,
+    "MAX_CHAR_BUFFER_SIZE",
+    intParser
+)
+val allocatorPageSize = makeBoundOption(
+    "io.netty.allocator.pageSize",
+    PooledByteBufAllocator::class.java,
+    "DEFAULT_PAGE_SIZE",
+    intParser
+)
+val allocatorMaxOrder = makeBoundOption(
+    "io.netty.allocator.maxOrder",
+    PooledByteBufAllocator::class.java,
+    "DEFAULT_MAX_ORDER",
+    intParser
+)
+val leakDetectionAcquireAndReleaseOnly = makeBoundOption(
+    "io.netty.leakDetection.acquireAndReleaseOnly",
+    /* :/ */ Class.forName("io.netty.buffer.AdvancedLeakAwareByteBuf"),
+    "ACQUIRE_AND_RELEASE_ONLY",
+    booleanParser
 )
 
 /**
