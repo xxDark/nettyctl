@@ -50,28 +50,24 @@ val maxRecylerCapacityPerThread = makeBoundOption(
     "DEFAULT_MAX_CAPACITY_PER_THREAD",
     intParser
 )
-
 val maxRecyclerSharedCapacityFactor = makeBoundOption(
     "io.netty.recycler.maxSharedCapacityFactor",
     Recycler::class.java,
     "MAX_SHARED_CAPACITY_FACTOR",
     intParser
 )
-
 val maxRecyclerDelayedQueuesPerThread = makeBoundOption(
     "io.netty.recycler.maxDelayedQueuesPerThread",
     Recycler::class.java,
     "MAX_DELAYED_QUEUES_PER_THREAD",
     intParser
 )
-
 val recyclerLinkCapacity = makeBoundOption(
     "io.netty.recycler.linkCapacity",
     Recycler::class.java,
     "LINK_CAPACITY",
     intParser
 )
-
 // There is no system property for that, but I'll still allow to modify that.
 val recyclerInitialCapacity = makeBoundOption(
     "io.netty.recycler.initialCapacity",
@@ -79,42 +75,36 @@ val recyclerInitialCapacity = makeBoundOption(
     "INITIAL_CAPACITY",
     intParser
 )
-
 val leakDetectorTargetRecords = makeBoundOption(
     "io.netty.leakDetection.targetRecords",
     ResourceLeakDetector::class.java,
     "TARGET_RECORDS",
     intParser
 )
-
 val leakDetectorSamplingInterval = makeBoundOption(
     "io.netty.leakDetection.samplingInterval",
     ResourceLeakDetector::class.java,
     "SAMPLING_INTERVAL",
     intParser
 )
-
 val leakDetectorLevel = makeBoundOption(
     "io.netty.leakDetection.level",
     ResourceLeakDetector::class.java,
     "level",
     leakDetectorLevelParser
 )
-
 val eventLoopMaxPendingTasks = makeBoundOption(
     "io.netty.eventLoop.maxPendingTasks",
     SingleThreadEventLoop::class.java,
     "DEFAULT_MAX_PENDING_TASKS",
     intParser
 )
-
 val pendingWriteSizeOverhead = makeBoundOption(
     "io.netty.transport.pendingWriteSizeOverhead",
     PendingWriteQueue::class.java,
     "PENDING_WRITE_OVERHEAD",
     intParser
 )
-
 val nioNoKeySetOptimization = makeBoundOption(
     "io.netty.noKeySetOptimization",
     NioEventLoop::class.java,
@@ -127,7 +117,6 @@ val channelOutboundBufferEntrySizeOverhead = makeBoundOption(
     "CHANNEL_OUTBOUND_BUFFER_ENTRY_OVERHEAD",
     intParser
 )
-
 val eventExecutorMaxPendingTasks = makeBoundOption(
     "io.netty.eventexecutor.maxPendingTasks",
     SingleThreadEventExecutor::class.java,
