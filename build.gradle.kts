@@ -17,7 +17,6 @@ dependencies {
 
 tasks {
     withType<Jar> {
-        // Otherwise you'll get a "No main manifest attribute" error
         manifest {
             attributes["Agent-Class"] = "dev.xdark.nettyctl.NettyctlKt"
         }
@@ -30,8 +29,7 @@ tasks {
     }
     register<Jar>("fatJar") {
         baseName = "${project.name}-fat"
-        from(
-            configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }) {
+        from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }) {
             exclude("META-INF/")
         }
 
