@@ -1,5 +1,6 @@
 package dev.xdark.nettyctl
 
+import io.netty.channel.ChannelOutboundBuffer
 import io.netty.channel.MultithreadEventLoopGroup
 import io.netty.channel.PendingWriteQueue
 import io.netty.channel.SingleThreadEventLoop
@@ -7,6 +8,7 @@ import io.netty.channel.nio.NioEventLoop
 import io.netty.handler.codec.compression.ZlibCodecFactory
 import io.netty.util.Recycler
 import io.netty.util.ResourceLeakDetector
+import io.netty.util.concurrent.SingleThreadEventExecutor
 import java.lang.instrument.Instrumentation
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
@@ -14,8 +16,6 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.*
 import kotlin.collections.HashMap
-import io.netty.channel.ChannelOutboundBuffer
-import io.netty.util.concurrent.SingleThreadEventExecutor
 
 private val modifiers = Field::class.java.getDeclaredField("modifiers").also { it.isAccessible = true }
 
