@@ -1,16 +1,21 @@
 package dev.xdark.nettyctl
 
+import io.netty.channel.MultithreadEventLoopGroup
+import io.netty.channel.PendingWriteQueue
+import io.netty.channel.SingleThreadEventLoop
+import io.netty.channel.nio.NioEventLoop
+import io.netty.handler.codec.compression.ZlibCodecFactory
+import io.netty.util.Recycler
+import io.netty.util.ResourceLeakDetector
+import java.lang.instrument.Instrumentation
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
-import io.netty.handler.codec.compression.ZlibCodecFactory
-import io.netty.channel.MultithreadEventLoopGroup
-import io.netty.util.Recycler
-import java.lang.instrument.Instrumentation
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.*
 import kotlin.collections.HashMap
-import io.netty.util.ResourceLeakDetector
+import io.netty.channel.ChannelOutboundBuffer
+import io.netty.util.concurrent.SingleThreadEventExecutor
 
 private val modifiers = Field::class.java.getDeclaredField("modifiers").also { it.isAccessible = true }
 
@@ -71,7 +76,7 @@ val recyclerLinkCapacity = makeBoundOption(
 val recyclerInitialCapacity = makeBoundOption(
     "io.netty.recycler.initialCapacity",
     Recycler::class.java,
-    "INITIAL_CAPACITY ",
+    "INITIAL_CAPACITY",
     intParser
 )
 
@@ -94,6 +99,40 @@ val leakDetectorLevel = makeBoundOption(
     ResourceLeakDetector::class.java,
     "level",
     leakDetectorLevelParser
+)
+
+val eventLoopMaxPendingTasks = makeBoundOption(
+    "io.netty.eventLoop.maxPendingTasks",
+    SingleThreadEventLoop::class.java,
+    "DEFAULT_MAX_PENDING_TASKS",
+    intParser
+)
+
+val pendingWriteSizeOverhead = makeBoundOption(
+    "io.netty.transport.pendingWriteSizeOverhead",
+    PendingWriteQueue::class.java,
+    "PENDING_WRITE_OVERHEAD",
+    intParser
+)
+
+val nioNoKeySetOptimization = makeBoundOption(
+    "io.netty.noKeySetOptimization",
+    NioEventLoop::class.java,
+    "DISABLE_KEY_SET_OPTIMIZATION",
+    booleanParser
+)
+val channelOutboundBufferEntrySizeOverhead = makeBoundOption(
+    "io.netty.transport.outboundBufferEntrySizeOverhead",
+    ChannelOutboundBuffer::class.java,
+    "CHANNEL_OUTBOUND_BUFFER_ENTRY_OVERHEAD",
+    intParser
+)
+
+val eventExecutorMaxPendingTasks = makeBoundOption(
+    "io.netty.eventexecutor.maxPendingTasks",
+    SingleThreadEventExecutor::class.java,
+    "DEFAULT_MAX_PENDING_EXECUTOR_TASKS",
+    intParser
 )
 
 /**
